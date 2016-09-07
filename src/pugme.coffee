@@ -26,7 +26,7 @@ module.exports = (robot) ->
     count = msg.match[2] || 5
     if count > max
       msg.send "You asked for too many pugs! NO PUGS FOR YOU!"
-    else if (Date.now - last_message_timestamp) > timeout
+    else if (Date.now - last_message_timestamp) < timeout
       msg.send "You just asked for pugs! NO PUGS FOR YOU!"
     else
       last_message_timestamp = Date.now
