@@ -14,6 +14,8 @@
 module.exports = (robot) ->
   # The `* 1` is to make the ENV var an integer
   max = (process.env.HUBOT_PUGBOMB_MAX * 1) || 100
+  timeout = (process.env.HUBOT_PUGBOMB_TIMEOUT) || 60000
+  last_message_timestamp = Date.now
 
   robot.respond /pug me/i, (msg) ->
     msg.http("http://pugme.herokuapp.com/random")
@@ -24,7 +26,10 @@ module.exports = (robot) ->
     count = msg.match[2] || 5
     if count > max
       msg.send "You asked for too many pugs! NO PUGS FOR YOU!"
+    else if (Date.now - last_message_timestamp) > timeout
+      msg.send "You just asked for pugs! NO PUGS FOR YOU!"
     else
+      last_message_timestamp = Date.now
       msg.http("http://pugme.herokuapp.com/bomb?count=" + count)
         .get() (err, res, body) ->
           msg.send pug for pug in JSON.parse(body).pugs
