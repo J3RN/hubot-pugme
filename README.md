@@ -1,5 +1,7 @@
 # hubot-pugme
 
+## THIS FORK OF THIS SCRIPT IS NO LONGER MAINTAINED. PLEASE USE A DIFFERENT ONE.
+
 Pugme is the most important hubot script
 
 See [`src/pugme.coffee`](src/pugme.coffee) for full documentation.
